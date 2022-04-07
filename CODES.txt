@@ -1,0 +1,495 @@
+================
+TRAIN TARRIF
+================
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Csharpprograms
+{
+    class Program8
+    {
+        public static void Main()
+        {
+            string input1, input2, input3;
+            input1 = Console.ReadLine();
+            input2 = Console.ReadLine();
+            input3 = Console.ReadLine();
+            int output = userProgramCode1.trainTariff(input1, input2, input3);
+            if (output > 5)
+            {
+                Console.WriteLine(output);
+            }
+            else
+            {
+                if (output == 1)
+                {
+                    Console.WriteLine("Short Notice and hence Tickets cannot be booked");
+                }
+                if (output == 2)
+                {
+                    Console.WriteLine("Improper Date format uin the input");
+                }
+                if (output == 3)
+                {
+                    Console.WriteLine("Long Notice period and hence Tickets cannot be booked");
+                }
+                if (output == 4)
+                {
+                    Console.WriteLine("Improper class of Travel");
+                }
+            }
+            Console.ReadLine();
+        }
+    }
+    internal class userProgramCode1
+    {
+        public static int trainTariff(string input1, string input2, string input3)
+        {
+            double total = 0;
+            try
+            {
+                DateTime d1 = Convert.ToDateTime(input1);
+                DateTime d2 = Convert.ToDateTime(input2);
+
+                int year = d1.Year - d2.Year;
+                int month = d1.Month - d2.Month;
+                int days = d1.Day - d2.Day;
+                int totaldays = Convert.ToInt32(((d2 - d1).TotalDays) + 1);
+                if (totaldays < 3)
+                {
+                    return 1;
+                }
+                if (totaldays > 90)
+                {
+                    return 3;
+                }
+                if ((input3 != "SL") && (input3 != "1AC") && (input3 != "2AC") && (input3 != "3AC"))
+                {
+                    return 4;
+                }
+                if (totaldays >= 4 && totaldays <= 10)
+                {
+                    if (input3 == "SL")
+                    {
+                        total = 1000 * 1.30;
+                    }
+                    if (input3 == "1AC")
+                    {
+                        total = 2500 * 1.30;
+                    }
+                    if (input3 == "2AC")
+                    {
+                        total = 2000 * 1.30;
+                    }
+                    if (input3 == "3AC")
+                    {
+                        total = 1500 * 1.30;
+                    }
+                    return (int)total;
+                }
+                if (totaldays >= 11 && totaldays <= 20)
+                {
+                    if (input3 == "SL")
+                    {
+                        total = 1000 * 1.20;
+                    }
+                    if (input3 == "1AC")
+                    {
+                        total = 2500 * 1.20;
+                    }
+                    if (input3 == "2AC")
+                    {
+                        total = 2000 * 1.20;
+                    }
+                    if (input3 == "3AC")
+                    {
+                        total = 1500 * 1.20;
+                    }
+                    return (int)total;
+                }
+                if (totaldays >= 21 && totaldays <= 30)
+                {
+                    if (input3 == "SL")
+                    {
+                        total = 1000 * 1.10;
+                    }
+                    if (input3 == "1AC")
+                    {
+                        total = 2500 * 1.10;
+                    }
+                    if (input3 == "2AC")
+                    {
+                        total = 2000 * 1.10;
+                    }
+                    if (input3 == "3AC")
+                    {
+                        total = 1500 * 1.10;
+                    }
+                    return (int)total;
+                }
+                if (totaldays == 3)
+                {
+                    if (input3 == "SL")
+                    {
+                        total = 1000 * 1.40;
+                    }
+                    if (input3 == "1AC")
+                    {
+                        total = 2500 * 1.40;
+                    }
+                    if (input3 == "2AC")
+                    {
+                        total = 2000 * 1.40;
+                    }
+                    if (input3 == "3AC")
+                    {
+                        total = 1500 * 1.40;
+                    }
+                    return (int)total;
+                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                return 2;
+            }
+        }
+    }
+}
+===============================================================
+==================
+NEXT YEAR DAY
+==================
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Csharpprograms
+{
+    internal class next_year_day
+    {
+        public static string NextYearDay(string input1)
+        {
+            DateTime day;
+            DateTime.TryParseExact(input1, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out day);
+            DateTime newDate = day.AddYears(1);
+
+            return newDate.DayOfWeek.ToString();
+
+        }
+    }
+    internal class Program7
+    {
+
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter date in dd/MM/yyyy format");
+            string strdate = Console.ReadLine();
+            string result = next_year_day.NextYearDay(strdate);
+
+            Console.WriteLine(result);
+        }
+
+    }
+}
+===============================================================
+============
+MAX MIN
+============
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Csharpprograms
+{
+    internal class MaxminSum
+    {
+        public static int sumMaxMin(int ip1, int ip2, int ip3)
+        {
+            int ans, a, b;
+            int[] t1 = new int[3];
+            t1[0] = ip1;
+            t1[1] = ip2;
+            t1[2] = ip3;
+            for (int i = 0; i < 3; i++)
+                if (t1[i] < 0)
+                    return -1;
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = i + 1; j < 3; j++)
+                {
+                    if (t1[i] == t1[j])
+                        return -2;
+                }
+            }
+            a = t1.Max();
+            b = t1.Min();
+            ans = a + b;
+            return ans;
+        }
+    }
+    class program4
+    {
+        public static void Main()
+        {
+            int x, y, z, k;
+            x = Convert.ToInt32(Console.ReadLine());
+            y = Convert.ToInt32(Console.ReadLine());
+            z = Convert.ToInt32(Console.ReadLine());
+            k = MaxminSum.sumMaxMin(x, y, z);
+            Console.WriteLine(k);
+            Console.ReadLine();
+        }
+    }
+}
+===============================================================
+===========
+GIFT VOUCHER
+===========
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Csharpprograms
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            int n, c, m;
+            n = Convert.ToInt32(Console.ReadLine());
+            m = Convert.ToInt32(Console.ReadLine());
+            c = userprogramcode.findGiftVoucher(n, m);
+            if (c == -1)
+            {
+                Console.WriteLine("invalid input");
+            }
+            else
+            {
+                Console.WriteLine(c);
+            }
+            Console.ReadLine();
+
+        }
+    }
+
+
+
+class userprogramcode
+
+{
+    public static int findGiftVoucher(int a, int b)
+    {
+        if (a > 0 && b > 0 && a < 7 && b < 7)
+        {
+            if ((a + b == 2) || (a + b == 3) || (a + b == 6) || (a + b == 11))
+                return (1000);
+            else if ((a + b == 4) || (a + b == 7) || (a + b == 10))
+                return (3000);
+            else if ((a + b == 5) || (a + b == 8) || (a + b == 9) || (a + b == 12))
+                return (5000);
+
+        }
+        else return (-1);
+        return 0;
+    }
+
+}
+
+}
+
+===============================================================
+==============
+UNIQUE EVEN SUM
+==============
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Csharpprograms
+{
+    internal class uniqueEven_Sum
+    {
+        public static int unique(int[] a)
+        {
+            int flag = 0;
+            int len = a.Length;
+            int sum = 0;
+            for (int i = 0; i < len; i++)
+            {
+                if (a[i] < 0)
+                    return -2;
+            }
+            for (int i = 0; i < len; i++)
+            {
+                if (a[i] % 2 == 0)
+                {
+                    flag = 1;
+                    break;
+                }
+            }
+            if (flag == 0)
+                return -1;
+
+            for (int i = 0; i < len; i++)
+            {
+                for (int j = i + 1; j < len; j++)
+                {
+                    if (a[i] == a[j])
+                    {
+                        a[i] = 0;
+                        a[j] = 0;
+
+                    }
+                }
+            }
+            for (int i = 0; i < len; i++)
+            {
+                if (a[i] % 2 == 0)
+                {
+                    sum = sum + a[i];
+                }
+            }
+            return sum;
+        }
+        class program6
+        {
+            public static void Main()
+            {
+                int n = int.Parse(Console.ReadLine());
+                int[] a = new int[n];
+                for (int i = 0; i < n; i++)
+                {
+                    a[i] = int.Parse(Console.ReadLine());
+                }
+                int op = uniqueEven_Sum.unique(a);
+                Console.WriteLine(op);
+                Console.ReadLine();
+            }
+        }
+    }
+}
+
+===============================================================
+==============
+PASSWORD
+==============
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace Csharpprograms
+{
+    internal class password
+    {
+        public static void Main()
+        {
+            string password = Console.ReadLine();
+            int res = Program3.validation(password);
+            if (res == 1)
+                Console.WriteLine("Valid Password");
+            else
+                Console.WriteLine("Invalid Password");
+            Console.ReadLine();
+        }
+    }
+    public class Program3
+    {
+        public static int validation(string input)
+        {
+            int result = 0;
+            if (input.Length >= 8)
+            {
+                char[] ch = input.ToCharArray();
+                if (char.IsLetter(ch.ElementAt(0)) && char.IsLetterOrDigit(ch.ElementAt(ch.Length - 1)))
+                {
+                    int splchar = 0;
+                    for (int i = 0; i < ch.Length - 2; i++)
+                    {
+                        if (char.IsLetterOrDigit(ch.ElementAt(i)))
+                        { }
+                        else if (ch.ElementAt(i) == '#' || ch.ElementAt(i) == '_' || ch.ElementAt(i) == '@')
+                            splchar++;
+                    }
+                    if (splchar >= 1)
+                    {
+                        result = 1;
+                    }
+                    else
+                        result = -1;
+                }
+            }
+            return result;
+        }
+    }
+}
+
+------------------------------------------
+/*using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;namespace Csharpprograms
+{
+    internal class password1
+    {
+        public static string validation(string password)
+        {
+            int flag = -1;
+            password = Console.ReadLine();
+            string passwordSequence = "^[A-Za-z](?=.*[A-Za-z0-9@#_])[A-Za-z0-9].{8,}$";
+            Regex regex = new Regex(passwordSequence);
+            if (regex.IsMatch(password))
+            {
+                flag = 1;
+                return flag.ToString();
+            }
+            else
+            {
+                flag = 0;
+                return flag.ToString();
+            }
+            //int flag = -1;
+            //password = Console.ReadLine(); //string passwordSequence = "^([A-Za-z])(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#,_])(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{8,}$";
+            //Regex regex = new Regex(passwordSequence); //if (regex.IsMatch(password))
+            {
+                //flag = 1;
+                //return flag.ToString();
+            }
+            //else
+            {
+                //flag = -1;
+                //return flag.ToString();
+            }
+        }
+        class program5
+        {
+            public static void Main()
+            {
+                Console.WriteLine("Enter Password: ");
+                string password = Console.ReadLine();
+                string k = password1.validation(password);
+                Console.WriteLine(k);
+            }
+        }
+    }
+}*/
+
+
